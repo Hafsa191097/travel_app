@@ -19,7 +19,9 @@ class PlaceCard extends StatefulWidget {
 }
 
 class _PlaceCardState extends State<PlaceCard> {
+
   bool isfavourite = false;
+  List<Places> favourite = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,29 +58,29 @@ class _PlaceCardState extends State<PlaceCard> {
                   children: [
                     Text(
                       widget.place.placeName,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style:  TextStyle(
+                        color: kcWhiteColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Row(
                       children: [
-                        const Icon(Icons.location_on,
-                            color: Colors.white, size: 16),
+                         Icon(Icons.location_on,
+                            color: kcWhiteColor, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           widget.place.location,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                          style:  TextStyle(
+                              color: kcWhiteColor, fontSize: 12),
                         ),
                         const Spacer(),
                         const Icon(Icons.star, color: Colors.yellow, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           widget.place.rating,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                          style:  TextStyle(
+                              color: kcWhiteColor, fontSize: 12),
                         ),
                       ],
                     ),
@@ -93,9 +95,9 @@ class _PlaceCardState extends State<PlaceCard> {
                 onTap: () {
                   ShareData.shareRecipeToEmail(widget.place);
                 },
-                child: const Icon(
+                child:  Icon(
                   Icons.share_location_outlined,
-                  color: Colors.white,
+                  color: kcWhiteColor,
                 ),
               ),
             ),
@@ -106,11 +108,17 @@ class _PlaceCardState extends State<PlaceCard> {
                 onTap: (){
                   setState(() {
                     isfavourite = !isfavourite;
+                    if(favourite.contains(widget.place)){
+                      isfavourite = !isfavourite;
+                      favourite.remove(widget.place);
+                    }
+                    favourite.add(widget.place);
+
                   });
                 },
-                child: isfavourite ? Icon(Icons.favorite, color: kcPrimaryColor) : const Icon(
+                child: isfavourite ? Icon(Icons.favorite, color: kcPrimaryColor) :  Icon(
                   Icons.favorite_border,
-                  color: Colors.white,
+                  color: kcWhiteColor,
                 ),
               ),
             ),

@@ -24,7 +24,7 @@ class PeopleList extends StatelessWidget {
               color: kcPrimaryColor.withOpacity(0.07),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.04),
+                  color: kcgreyColor,
                   spreadRadius: 1,
                   blurRadius: 1,
                   offset: const Offset(0, 3),
@@ -50,7 +50,7 @@ class PeopleList extends StatelessWidget {
                         
                   ),
                 ),
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.all(15.0),
                   child: FittedBox(
                     child: Column(
@@ -64,7 +64,7 @@ class PeopleList extends StatelessWidget {
                             fontSize: 16,
                             letterSpacing: -0.3,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: kcBalckColor,
                           ),
                         ),
                         
@@ -74,7 +74,7 @@ class PeopleList extends StatelessWidget {
                             fontSize: 14,
                             letterSpacing: -0.3,
                             fontWeight: FontWeight.w300,
-                            color: Colors.black,
+                            color: kcBalckColor,
                           ),
                         ),
                       ],

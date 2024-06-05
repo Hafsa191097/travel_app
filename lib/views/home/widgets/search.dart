@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/appColors/colors.dart';
 
 // ignore: must_be_immutable
 class SearchBarr extends StatefulWidget {
@@ -17,7 +18,7 @@ class _SearchBarrState extends State<SearchBarr> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: kcgreyColor.withOpacity( 0.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/appColors/colors.dart';
 import 'package:travel_app/models/place.dart';
 import 'package:travel_app/views/home/widgets/places_card.dart';
 
@@ -22,9 +23,9 @@ class PopularPlaces extends StatelessWidget {
           children: [
             Chip(
               key: UniqueKey(),
-              label: const Text(
+              label:  Text(
                 'Nature',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kcWhiteColor),
               ),
               color: const MaterialStatePropertyAll(Colors.black54),
               padding: const EdgeInsets.only(top: 8, bottom: 8, left: 15, right: 15),

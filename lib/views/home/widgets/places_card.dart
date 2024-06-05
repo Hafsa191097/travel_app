@@ -1,27 +1,43 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:travel_app/appColors/colors.dart';
 import 'package:travel_app/models/place.dart';
+import 'package:travel_app/services/global.dart';
 import 'package:travel_app/services/share.dart';
 
-// ignore: must_be_immutable
 class PlaceCard extends StatefulWidget {
-  Places place;
+  final Places place;
 
-  // ignore: prefer_const_constructors_in_immutables
-  PlaceCard({
-    super.key,
-    required this.place
-  });
+  PlaceCard({super.key, required this.place});
 
   @override
   State<PlaceCard> createState() => _PlaceCardState();
 }
 
 class _PlaceCardState extends State<PlaceCard> {
-
   bool isfavourite = false;
-  List<Places> favourite = [];
+
+  @override
+  void initState() {
+    super.initState();
+    isfavourite = favourite.contains(widget.place);
+  }
+
+  void toggleFavourite() {
+    setState(() {
+      if (isfavourite) {
+        
+        favourite.removeWhere((element) => element == widget.place);
+        log("fav " + favourite.length.toString());
+      } else {
+        favourite.add(widget.place);
+        log("fav2 " + favourite.length.toString());
+      }
+      isfavourite = !isfavourite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +54,6 @@ class _PlaceCardState extends State<PlaceCard> {
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            
             Container(
               height: 100,
               width: double.infinity,
@@ -58,7 +73,7 @@ class _PlaceCardState extends State<PlaceCard> {
                   children: [
                     Text(
                       widget.place.placeName,
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: kcWhiteColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -66,21 +81,22 @@ class _PlaceCardState extends State<PlaceCard> {
                     ),
                     Row(
                       children: [
-                         Icon(Icons.location_on,
-                            color: kcWhiteColor, size: 16),
+                        Icon(Icons.location_on, color: kcWhiteColor, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           widget.place.location,
-                          style:  TextStyle(
-                              color: kcWhiteColor, fontSize: 12),
+                          style: TextStyle(
+                            color: kcWhiteColor, fontSize: 12,
+                          ),
                         ),
                         const Spacer(),
                         const Icon(Icons.star, color: Colors.yellow, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           widget.place.rating,
-                          style:  TextStyle(
-                              color: kcWhiteColor, fontSize: 12),
+                          style: TextStyle(
+                            color: kcWhiteColor, fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
@@ -88,37 +104,27 @@ class _PlaceCardState extends State<PlaceCard> {
                 ),
               ),
             ),
-             Positioned(
+            Positioned(
               top: 15,
               right: 8,
               child: GestureDetector(
                 onTap: () {
                   ShareData.shareRecipeToEmail(widget.place);
                 },
-                child:  Icon(
+                child: Icon(
                   Icons.share_location_outlined,
                   color: kcWhiteColor,
                 ),
               ),
             ),
-             Positioned(
+            Positioned(
               top: 15,
               left: 8,
               child: GestureDetector(
-                onTap: (){
-                  setState(() {
-                    isfavourite = !isfavourite;
-                    if(favourite.contains(widget.place)){
-                      isfavourite = !isfavourite;
-                      favourite.remove(widget.place);
-                    }
-                    favourite.add(widget.place);
-
-                  });
-                },
-                child: isfavourite ? Icon(Icons.favorite, color: kcPrimaryColor) :  Icon(
-                  Icons.favorite_border,
-                  color: kcWhiteColor,
+                onTap: toggleFavourite,
+                child: Icon(
+                  isfavourite ? Icons.favorite : Icons.favorite_border,
+                  color: isfavourite ? kcPrimaryColor : kcWhiteColor,
                 ),
               ),
             ),

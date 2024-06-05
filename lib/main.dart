@@ -11,6 +11,9 @@ Future<void> main() async{
     options: DefaultFirebaseOptions.currentPlatform,
 );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  Future.delayed(const Duration(seconds: 5), () {
+    FlutterNativeSplash.remove();
+  });
   runApp(const MyApp());
 }
 
@@ -23,10 +26,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    FlutterNativeSplash.remove();
-    super.initState();
-  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

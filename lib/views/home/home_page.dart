@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:travel_app/appColors/colors.dart';
 import 'package:travel_app/models/place.dart';
@@ -19,6 +20,8 @@ class HomeScreen extends StatefulWidget {
 String searchTerm = "";
 
 class _HomeScreenState extends State<HomeScreen> {
+  int selectedIndex = 0; // Move selectedIndex here
+
   List<PlaceCard> places = [
     PlaceCard(
       place: Places(
@@ -52,12 +55,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: kcWhiteColor,
       appBar: AppBar(
         backgroundColor: kcWhiteColor,
         elevation: 0,
@@ -100,8 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
         index: selectedIndex,
         children: [
           _buildHomeScreen(),
-          FavrouitesList(
-              places: places.map((placeCard) => placeCard.place).toList()),
+          FavrouitesList(),
+             
           Center(child: Text('Profile')),
         ],
       ),
@@ -110,6 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             selectedIndex = index;
+            log(index.toString());
+            log(selectedIndex.toString());
           });
         },
         items: const [
